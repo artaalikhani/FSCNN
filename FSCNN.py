@@ -36,7 +36,7 @@ class FSKenrel(nn.Module):
 
 class ConvBlock1d(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=5, stride=1, padding=2):
-        super(ConvBlock1d, self).__init__()
+        super().__init__()
         self.conv = nn.Conv1d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding, bias=False)
         self.bn = nn.BatchNorm1d(out_channels)
 
@@ -65,21 +65,15 @@ class PC2DLinear(nn.Module):
 
 
 class Net(nn.Module):
-    def __init__(self, n_class, 5='CWRU'):
-        super(Net, self).__init__()
+    def __init__(self, n_class, case_study='CWRU'):
+        super().__init__()
         self.name = 'WFCNN'
-        if case_study=='CWRU':
-            self.l_f=25
-            stride_len=2
-            self.n_f = 6
-            fc_input_features = 14
-            channel_h = 16
-        elif case_study=='ITSC':
+        if case_study=='ITSC':
             self.l_f=50
             stride_len=2
             self.n_f = 6
             fc_input_features = 6
-            channel_h = 8
+            channel_h = 8            
         else:
             self.l_f=25
             stride_len=2
@@ -103,7 +97,7 @@ class Net(nn.Module):
         self.l3 = nn.Conv2d(1, 1, kernel_size=(3,3), stride=(1,stride_len))
 
         self.flatten = nn.Flatten()
-        self.fc= PC2DLinear(n_class, input_features=fc_input_features, device= self.device)
+        self.pcl= PC2DLinear(n_class, input_features=fc_input_features, device= self.device)
  
     def forward(self, x):
         x = x.to(self.device).type(torch.cuda.DoubleTensor)
@@ -125,6 +119,6 @@ class Net(nn.Module):
 
         f6 = f5.transpose(2,3)
 
-        out = self.fc(f6)
+        out = self.pcl(f6)
         
         return out
