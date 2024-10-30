@@ -1,8 +1,8 @@
 '''
-WFCNN model with pytorch
+FSCNN model with pytorch
 
 Reference:
-
+A. Mohammad-Alikhani, B. Nahid-Mobarakeh, M. Hsieh, "Diagnosis of Mechanical and Electrical Faults in Electric Machines Using a Lightweight Frequency-Scaled Convolutional Neural Network," IEEE Transactions on Energy Conversion, 2024.
 '''
 import torch
 import torch.nn as nn
