@@ -67,7 +67,7 @@ class PC2DLinear(nn.Module):
 class Net(nn.Module):
     def __init__(self, n_class, case_study='CWRU'):
         super().__init__()
-        self.name = 'WFCNN'
+        self.name = 'FSCNN'
         if case_study=='ITSC':
             self.l_f=50
             stride_len=2
